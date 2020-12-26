@@ -10,7 +10,7 @@ namespace SlotBooker.Services
 {
     public class SlotFinder
     {
-        public void FindSlot()
+        public void FindSlot(DateTime date)
         {
             string month = "January";
 

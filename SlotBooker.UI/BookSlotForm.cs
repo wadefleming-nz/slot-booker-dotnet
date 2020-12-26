@@ -28,7 +28,7 @@ namespace SlotBooker.UI
         private void findSlotButton_Click(object sender, EventArgs e)
         {
             SlotFinder slotFinder = new SlotFinder();      
-            slotFinder.FindSlot();
+            slotFinder.FindSlot(selectedDate);
         }
 
         private void monthCalendar_DateSelected(object sender, DateRangeEventArgs e)
