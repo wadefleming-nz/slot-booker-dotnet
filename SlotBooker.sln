@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30804.86
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlotBooker", "SlotBooker.csproj", "{A958F962-8353-49DF-8A4B-89D24B76E456}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SlotBooker", "SlotBooker.csproj", "{A958F962-8353-49DF-8A4B-89D24B76E456}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SlotBookerApp", "SlotBookerApp\SlotBookerApp.csproj", "{A101003A-D5A3-4936-869F-95228D3F673D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{A958F962-8353-49DF-8A4B-89D24B76E456}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A958F962-8353-49DF-8A4B-89D24B76E456}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A958F962-8353-49DF-8A4B-89D24B76E456}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A101003A-D5A3-4936-869F-95228D3F673D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A101003A-D5A3-4936-869F-95228D3F673D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A101003A-D5A3-4936-869F-95228D3F673D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A101003A-D5A3-4936-869F-95228D3F673D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

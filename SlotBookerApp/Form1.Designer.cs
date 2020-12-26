@@ -1,5 +1,5 @@
 ﻿
-namespace SlotBooker
+namespace SlotBookerApp
 {
     partial class Form1
     {
