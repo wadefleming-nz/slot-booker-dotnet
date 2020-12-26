@@ -12,11 +12,11 @@ namespace SlotBooker.Services
     public class SlotFinder
     {
         private const int retryDelay = 2 * 1000;
+        private const int waitUntilClosingDelay = 5 * 60 * 1000;
 
         public void FindSlot(DateTime date)
         {
             var dateFormatter = new DateFormatter(date);
-
             var driver = CreateUndetectableDriver();
 
             PrepareLoginPage(driver);
@@ -24,11 +24,11 @@ namespace SlotBooker.Services
             NavigateToManageFamilyRegistrationPage(driver);
             NavigateToHoldYourAccommodationPage(driver);
             SelectNoAccessibilityNeeds(driver);
-
             RetryUntilSlotBooked(driver, dateFormatter);
             WaitForConfirmation(driver);
-            
-            Thread.Sleep(10 * 1000);
+            TakeScreenshotOfConfirmation(driver);
+
+            Thread.Sleep(waitUntilClosingDelay);
 
             driver.Close();
         }
@@ -131,14 +131,14 @@ namespace SlotBooker.Services
             var successText = "Managed isolation allocation is held pending flight confirmation";
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(180));
             wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.XPath($"//*[contains(text(), '{successText}')]")));
+        }
 
-            Thread.Sleep(1 * 1000);     //wait for in built auto scroll
+        private void TakeScreenshotOfConfirmation(ChromeDriver driver)
+        {
+            Thread.Sleep(1 * 1000);     //wait for in built auto scroll to relevant section
 
-            // take screenshot
             var screenshot = driver.GetScreenshot();
             screenshot.SaveAsFile(@"C:\temp\miq\miq-booked.png", ScreenshotImageFormat.Png);
-
-            Thread.Sleep(5 * 1000);
         }
 
         private void ScrollTo(ChromeDriver driver, IWebElement element)
