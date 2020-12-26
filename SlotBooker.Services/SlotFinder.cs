@@ -21,18 +21,14 @@ namespace SlotBooker.Services
             WaitForUserToLogin(driver);
 
             var viewButton = driver.FindElementByCssSelector("[aria-label=\"View Passengers\' details\"]");
-            ScrollTo(driver, viewButton);
-            
-            viewButton.Click();
+            ScrollToAndClick(driver, viewButton);
 
             var secureButton = driver.FindElementByCssSelector("[aria-label='Secure your allocation']");
-            ScrollTo(driver, secureButton);
-            secureButton.Click();
+            ScrollToAndClick(driver, secureButton);
 
             // select No accessibility needs
             var accessibilityOption = driver.FindElementByCssSelector("[for='form_rooms_0_accessibilityRequirement_1']");
-            ScrollTo(driver, accessibilityOption);
-            accessibilityOption.Click();
+            ScrollToAndClick(driver, accessibilityOption);
 
             for (int retry = 0; ; retry++)
             {
@@ -130,6 +126,12 @@ namespace SlotBooker.Services
             string javascript = $"window.scroll(0, { elementPosition })";
             driver.ExecuteScript(javascript);
             Thread.Sleep(scrollWait);
+        }
+
+        private void ScrollToAndClick(ChromeDriver driver, IWebElement element)
+        {
+            ScrollTo(driver, element);
+            element.Click();
         }
     }
 }
