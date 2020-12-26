@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using SlotBooker.UI;
+using System;
 using System.Windows.Forms;
 
 namespace SlotBooker.App
@@ -16,7 +14,7 @@ namespace SlotBooker.App
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Application.Run(new BookSlotForm());
         }
     }
 }

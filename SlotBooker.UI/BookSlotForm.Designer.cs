@@ -1,7 +1,7 @@
 ﻿
-namespace SlotBooker.App
+namespace SlotBooker.UI
 {
-    partial class Form1
+    partial class BookSlotForm
     {
         /// <summary>
         /// Required designer variable.
@@ -34,22 +34,22 @@ namespace SlotBooker.App
             // 
             // findSlotButton
             // 
-            this.findSlotButton.Location = new System.Drawing.Point(317, 185);
+            this.findSlotButton.Location = new System.Drawing.Point(189, 148);
             this.findSlotButton.Name = "findSlotButton";
-            this.findSlotButton.Size = new System.Drawing.Size(159, 72);
+            this.findSlotButton.Size = new System.Drawing.Size(172, 89);
             this.findSlotButton.TabIndex = 0;
             this.findSlotButton.Text = "Find Slot";
             this.findSlotButton.UseVisualStyleBackColor = true;
             this.findSlotButton.Click += new System.EventHandler(this.findSlotButton_Click);
             // 
-            // Form1
+            // BookSlotForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(551, 392);
             this.Controls.Add(this.findSlotButton);
-            this.Name = "Form1";
-            this.Text = "Form1";
+            this.Name = "BookSlotForm";
+            this.Text = "BookSlotForm";
             this.ResumeLayout(false);
 
         }
@@ -59,4 +59,3 @@ namespace SlotBooker.App
         private System.Windows.Forms.Button findSlotButton;
     }
 }
-
