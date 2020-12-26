@@ -30,11 +30,12 @@ namespace SlotBooker.UI
         private void InitializeComponent()
         {
             this.findSlotButton = new System.Windows.Forms.Button();
+            this.monthCalendar = new System.Windows.Forms.MonthCalendar();
             this.SuspendLayout();
             // 
             // findSlotButton
             // 
-            this.findSlotButton.Location = new System.Drawing.Point(189, 148);
+            this.findSlotButton.Location = new System.Drawing.Point(106, 322);
             this.findSlotButton.Name = "findSlotButton";
             this.findSlotButton.Size = new System.Drawing.Size(172, 89);
             this.findSlotButton.TabIndex = 0;
@@ -42,11 +43,20 @@ namespace SlotBooker.UI
             this.findSlotButton.UseVisualStyleBackColor = true;
             this.findSlotButton.Click += new System.EventHandler(this.findSlotButton_Click);
             // 
+            // monthCalendar
+            // 
+            this.monthCalendar.Location = new System.Drawing.Point(42, 35);
+            this.monthCalendar.MaxSelectionCount = 1;
+            this.monthCalendar.Name = "monthCalendar";
+            this.monthCalendar.TabIndex = 1;
+            this.monthCalendar.DateSelected += new System.Windows.Forms.DateRangeEventHandler(this.monthCalendar_DateSelected);
+            // 
             // BookSlotForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(551, 392);
+            this.ClientSize = new System.Drawing.Size(405, 447);
+            this.Controls.Add(this.monthCalendar);
             this.Controls.Add(this.findSlotButton);
             this.Name = "BookSlotForm";
             this.Text = "BookSlotForm";
@@ -57,5 +67,6 @@ namespace SlotBooker.UI
         #endregion
 
         private System.Windows.Forms.Button findSlotButton;
+        private System.Windows.Forms.MonthCalendar monthCalendar;
     }
 }
