@@ -51,9 +51,9 @@ namespace SlotBooker.Services
         {
             driver.Url = "https://allocation.miq.govt.nz/portal/login";
 
-            driver.FindElementByCssSelector("#gtm-acceptAllCookieButton").Click();
-            driver.FindElementByCssSelector("#username").SendKeys(email);
-            driver.FindElementByCssSelector("#password").SendKeys(password);
+            driver.FindElementById("gtm-acceptAllCookieButton").Click();
+            driver.FindElementById("username").SendKeys(email);
+            driver.FindElementById("password").SendKeys(password);
         }
 
         private void WaitForUserToLogin(ChromeDriver driver)
