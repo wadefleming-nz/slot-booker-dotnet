@@ -5,15 +5,15 @@ namespace SlotBooker.Services.Utils
 {
     public class DateFormatter
     {
-        private readonly DateTime date;
+        public readonly DateTime Date;
         private const string english = "en-GB"; // ensure date naming matches target website
 
-        public string MonthString => date.ToString("MMMM", CultureInfo.GetCultureInfo(english));
-        public string DateString => date.ToString("MMMM dd, yyyy", CultureInfo.GetCultureInfo(english));
+        public string MonthString => Date.ToString("MMMM", CultureInfo.GetCultureInfo(english));
+        public string DateString => Date.ToString("MMMM dd, yyyy", CultureInfo.GetCultureInfo(english));
 
         public DateFormatter(DateTime date)
         {
-            this.date = date;
+            this.Date = date;
         }
     }
 }

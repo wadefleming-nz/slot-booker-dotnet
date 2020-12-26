@@ -16,10 +16,9 @@ namespace SlotBooker.Services
         private const int waitForUserToLoginDelay = 60 * 1000;
         private const int waitForBookingConfirmationDelay = 3 * 60 * 1000;
         private const int retryDelay = 2 * 1000;
-        private const int waitForConfirmationAutoScrollDelay = 1 * 1000;
-        private const int waitUntilClosingDelay = 5 * 60 * 1000;
+        private const int waitUntilClosingDelay = 2 * 60 * 1000;
 
-        public void FindSlot(FindSlotParams findSlotParams)
+        public FindSlotResult FindSlot(FindSlotParams findSlotParams)
         {
             var dateFormatters = findSlotParams.Dates.Select(d => new DateFormatter(d)).ToList();
 
@@ -30,11 +29,11 @@ namespace SlotBooker.Services
                 NavigateToManageFamilyRegistrationPage(driver);
                 NavigateToHoldYourAccommodationPage(driver);
                 SelectNoAccessibilityNeeds(driver);
-                RetryUntilSlotBooked(driver, dateFormatters);
+                var dateBooked = RetryUntilSlotBooked(driver, dateFormatters);
                 WaitForConfirmation(driver);
-                TakeScreenshotOfConfirmation(driver);
 
                 Thread.Sleep(waitUntilClosingDelay);
+                return new FindSlotResult { Succeeded = true, DateBooked = dateBooked };
             }
         }
 
@@ -83,27 +82,30 @@ namespace SlotBooker.Services
             driver.ScrollToAndClick(noAccessibilityNeedsOption);
         }
 
-        private bool RetryUntilSlotBooked(ChromeDriver driver, List<DateFormatter> dateFormatters)
+        private DateTime RetryUntilSlotBooked(ChromeDriver driver, List<DateFormatter> dateFormatters)
         {
             for (int attempt = 0; ; attempt++)
             {
-                if (BookAnyDate(driver, dateFormatters))
-                    return true;
+                var result = BookAnyDate(driver, dateFormatters);
+                if (result.Succeeded)
+                {
+                    return result.DateBooked.Value;
+                }
 
                 Thread.Sleep(retryDelay);            
                 driver.Navigate().Refresh();
             }
         }
 
-        private bool BookAnyDate(ChromeDriver driver, List<DateFormatter> dateFormatters)
+        private (bool Succeeded, DateTime? DateBooked) BookAnyDate(ChromeDriver driver, List<DateFormatter> dateFormatters)
         {
-            foreach(DateFormatter dateFormatter in dateFormatters)
+            foreach (DateFormatter dateFormatter in dateFormatters)
             {
                 if (BookDate(driver, dateFormatter))
-                    return true;
+                    return (true, dateFormatter.Date);
             }
 
-            return false;
+            return (false, null);
         }
 
         private bool BookDate(ChromeDriver driver, DateFormatter dateFormatter)
@@ -147,14 +149,6 @@ namespace SlotBooker.Services
             var successText = "Managed isolation allocation is held pending flight confirmation";
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(waitForBookingConfirmationDelay));
             wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.XPath($"//*[contains(text(), '{successText}')]")));
-        }
-
-        private void TakeScreenshotOfConfirmation(ChromeDriver driver)
-        {
-            Thread.Sleep(waitForConfirmationAutoScrollDelay);   
-
-            var screenshot = driver.GetScreenshot();
-            screenshot.SaveAsFile(@"C:\temp\miq\miq-booked.png", ScreenshotImageFormat.Png);
         }
     }
 }

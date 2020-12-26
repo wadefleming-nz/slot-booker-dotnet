@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\FindSlotParams.cs" />
+    <Compile Include="Models\FindSlotResult.cs" />
     <Compile Include="Utils\DateFormatter.cs" />
     <Compile Include="SlotFinder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

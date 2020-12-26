@@ -27,7 +27,11 @@ namespace SlotBooker.UI
                     Dates = selectedDatesListBox.Items.Cast<DateTime>().ToList()
                 };
 
-                slotFinder.FindSlot(findSlotParams);
+                var result = slotFinder.FindSlot(findSlotParams);
+                var resultText = result.Succeeded 
+                    ? $"Slot was successfully booked for { result.DateBooked.Value.ToString("d") }" 
+                    : "Slot was not booked";
+                resultLabel.Text = resultText;
             }
         }
 

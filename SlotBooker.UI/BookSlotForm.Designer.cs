@@ -40,12 +40,13 @@ namespace SlotBooker.UI
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            this.resultLabel = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // findSlotButton
             // 
-            this.findSlotButton.Location = new System.Drawing.Point(207, 610);
+            this.findSlotButton.Location = new System.Drawing.Point(209, 660);
             this.findSlotButton.Name = "findSlotButton";
             this.findSlotButton.Size = new System.Drawing.Size(111, 59);
             this.findSlotButton.TabIndex = 0;
@@ -128,11 +129,20 @@ namespace SlotBooker.UI
             this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
             this.errorProvider.ContainerControl = this;
             // 
+            // resultLabel
+            // 
+            this.resultLabel.AutoSize = true;
+            this.resultLabel.Location = new System.Drawing.Point(26, 612);
+            this.resultLabel.Name = "resultLabel";
+            this.resultLabel.Size = new System.Drawing.Size(0, 30);
+            this.resultLabel.TabIndex = 10;
+            // 
             // BookSlotForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(521, 700);
+            this.ClientSize = new System.Drawing.Size(521, 750);
+            this.Controls.Add(this.resultLabel);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.selectedDatesListBox);
@@ -163,5 +173,6 @@ namespace SlotBooker.UI
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ErrorProvider errorProvider;
+        private System.Windows.Forms.Label resultLabel;
     }
 }
