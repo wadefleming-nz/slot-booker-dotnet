@@ -12,11 +12,7 @@ namespace SlotBooker.UI
         {
             InitializeComponent();
 
-            monthCalendar.MinDate = DateTime.Today;
-
-            // defaults
-            //emailAddressTextBox.Text = "wadefleming@yahoo.com";
-            //passwordTextBox.Text = "Dembava12345";     
+            monthCalendar.MinDate = DateTime.Today;   
         }
 
         private void findButton_Click(object sender, EventArgs e)
