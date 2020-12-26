@@ -63,19 +63,19 @@ namespace SlotBooker.Services
         private void NavigateToManageFamilyRegistrationPage(ChromeDriver driver)
         {
             var viewButton = driver.FindElementByCssSelector("[aria-label=\"View Passengers\' details\"]");
-            ScrollToAndClick(driver, viewButton);
+            driver.ScrollToAndClick(viewButton);
         }
 
         private void NavigateToHoldYourAccommodationPage(ChromeDriver driver)
         {
             var secureButton = driver.FindElementByCssSelector("[aria-label='Secure your allocation']");
-            ScrollToAndClick(driver, secureButton);
+            driver.ScrollToAndClick(secureButton);
         }
 
         private void SelectNoAccessibilityNeeds(ChromeDriver driver)
         {
             var noAccessibilityNeedsOption = driver.FindElementByCssSelector("[for='form_rooms_0_accessibilityRequirement_1']");
-            ScrollToAndClick(driver, noAccessibilityNeedsOption);
+            driver.ScrollToAndClick(noAccessibilityNeedsOption);
         }
 
         private bool RetryUntilSlotBooked(ChromeDriver driver, DateFormatter dateFormatter)
@@ -101,7 +101,7 @@ namespace SlotBooker.Services
             var nextMonthButton = driver.FindElementByClassName("flatpickr-next-month");
             var currentMonth = driver.FindElementByClassName("cur-month");
 
-            ScrollTo(driver, nextMonthButton);      // must be in view to be clickable  
+            driver.ScrollTo(nextMonthButton);      // must be in view to be clickable  
 
             while (currentMonth.Text != month)
             {
@@ -139,22 +139,6 @@ namespace SlotBooker.Services
 
             var screenshot = driver.GetScreenshot();
             screenshot.SaveAsFile(@"C:\temp\miq\miq-booked.png", ScreenshotImageFormat.Png);
-        }
-
-        private void ScrollTo(ChromeDriver driver, IWebElement element)
-        {
-            const int scrollWait = 1 * 1000;
-
-            int elementPosition = element.Location.Y;
-            string javascript = $"window.scroll(0, { elementPosition })";
-            driver.ExecuteScript(javascript);
-            Thread.Sleep(scrollWait);
-        }
-
-        private void ScrollToAndClick(ChromeDriver driver, IWebElement element)
-        {
-            ScrollTo(driver, element);
-            element.Click();
         }
     }
 }
