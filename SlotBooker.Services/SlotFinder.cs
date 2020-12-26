@@ -2,6 +2,7 @@
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
+using SlotBooker.Services.Utils;
 using System;
 using System.Linq;
 using System.Threading;
@@ -12,7 +13,7 @@ namespace SlotBooker.Services
     {
         public void FindSlot(DateTime date)
         {
-            string month = "January";
+            var dateFormatter = new DateFormatter(date);
 
             var options = new ChromeOptions();
 
@@ -50,7 +51,7 @@ namespace SlotBooker.Services
 
             for (int retry = 0; ; retry++)
             {
-                if (BookDate(driver, month, 999))
+                if (BookDate(driver, dateFormatter))
                     break;
 
                 Thread.Sleep(2 * 1000);             // delay between retries
@@ -62,10 +63,10 @@ namespace SlotBooker.Services
             driver.Close();
         }
 
-        private bool BookDate(ChromeDriver driver, string month, int day)
+        private bool BookDate(ChromeDriver driver, DateFormatter dateFormatter)
         {
-            NavigateToMonth(driver, month);
-            return BookDay(driver, day);
+            NavigateToMonth(driver, dateFormatter.MonthString);
+            return BookDay(driver, dateFormatter.DateString);
         }
 
         private void NavigateToMonth(ChromeDriver driver, string month)
@@ -82,10 +83,10 @@ namespace SlotBooker.Services
             }
         }
 
-        private bool BookDay(ChromeDriver driver, int day)
+        private bool BookDay(ChromeDriver driver, string date)
         {
             var dayElement = driver
-                .FindElementsByCssSelector(":not(.flatpickr-disabled)[aria-label='January 19, 2021']")
+                .FindElementsByCssSelector($":not(.flatpickr-disabled)[aria-label='{date}']")
                 .FirstOrDefault();
 
             if (dayElement != null)
