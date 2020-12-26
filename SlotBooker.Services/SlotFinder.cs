@@ -18,11 +18,7 @@ namespace SlotBooker.Services
             var driver = CreateUndetectableDriver();
 
             PrepareLoginPage(driver);
-
-            // wait for manual solve of recaptcha
-            var selectBookingText = "Select the booking to manage";
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(60));
-            wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.XPath($"//*[contains(text(), '{selectBookingText}')]")));
+            WaitForUserToLogin(driver);
 
             var viewButton = driver.FindElementByCssSelector("[aria-label=\"View Passengers\' details\"]");
             ScrollTo(driver, viewButton);
@@ -71,6 +67,14 @@ namespace SlotBooker.Services
             driver.FindElementByCssSelector("#gtm-acceptAllCookieButton").Click();
             driver.FindElementByCssSelector("#username").SendKeys("wadefleming@yahoo.com");
             driver.FindElementByCssSelector("#password").SendKeys("Dembava12345");
+        }
+
+        private void WaitForUserToLogin(ChromeDriver driver)
+        {
+            // wait for manual solve of recaptcha and login
+            var selectBookingText = "Select the booking to manage";
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(60));
+            wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.XPath($"//*[contains(text(), '{selectBookingText}')]")));
         }
 
         private bool BookDate(ChromeDriver driver, DateFormatter dateFormatter)
