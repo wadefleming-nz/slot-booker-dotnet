@@ -26,6 +26,7 @@ namespace SlotBooker.Services
             SelectNoAccessibilityNeeds(driver);
 
             RetryUntilSlotBooked(driver, dateFormatter);
+            WaitForConfirmation(driver);
             
             Thread.Sleep(10 * 1000);
 
@@ -77,12 +78,12 @@ namespace SlotBooker.Services
             ScrollToAndClick(driver, noAccessibilityNeedsOption);
         }
 
-        private void RetryUntilSlotBooked(ChromeDriver driver, DateFormatter dateFormatter)
+        private bool RetryUntilSlotBooked(ChromeDriver driver, DateFormatter dateFormatter)
         {
             for (int attempt = 0; ; attempt++)
             {
                 if (BookDate(driver, dateFormatter))
-                    return;
+                    return true;
 
                 Thread.Sleep(retryDelay);            
                 driver.Navigate().Refresh();
@@ -119,21 +120,25 @@ namespace SlotBooker.Services
                 dayElement.Click();
                 driver.FindElementById("form_next").Click();
 
-                var successText = "Managed isolation allocation is held pending flight confirmation";
-                WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(180));
-                wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.XPath($"//*[contains(text(), '{successText}')]")));
-
-                Thread.Sleep(1 * 1000);     //wait for in built auto scroll
-
-                // take screenshot
-                var screenshot = driver.GetScreenshot();
-                screenshot.SaveAsFile(@"C:\temp\miq\miq-booked.png", ScreenshotImageFormat.Png);
-
-                Thread.Sleep(5 * 1000);
                 return true;
             }
 
             return false;
+        }
+
+        private void WaitForConfirmation(ChromeDriver driver)
+        {
+            var successText = "Managed isolation allocation is held pending flight confirmation";
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(180));
+            wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.XPath($"//*[contains(text(), '{successText}')]")));
+
+            Thread.Sleep(1 * 1000);     //wait for in built auto scroll
+
+            // take screenshot
+            var screenshot = driver.GetScreenshot();
+            screenshot.SaveAsFile(@"C:\temp\miq\miq-booked.png", ScreenshotImageFormat.Png);
+
+            Thread.Sleep(5 * 1000);
         }
 
         private void ScrollTo(ChromeDriver driver, IWebElement element)
