@@ -17,11 +17,7 @@ namespace SlotBooker.Services
 
             var driver = CreateUndetectableDriver();
 
-            driver.Url = "https://allocation.miq.govt.nz/portal/login";
-
-            driver.FindElementByCssSelector("#gtm-acceptAllCookieButton").Click();
-            driver.FindElementByCssSelector("#username").SendKeys("wadefleming@yahoo.com");
-            driver.FindElementByCssSelector("#password").SendKeys("Dembava12345");
+            PrepareLoginPage(driver);
 
             // wait for manual solve of recaptcha
             var selectBookingText = "Select the booking to manage";
@@ -66,6 +62,15 @@ namespace SlotBooker.Services
             options.AddArgument("--disable-blink-features=AutomationControlled");
 
             return new ChromeDriver(options);
+        }
+
+        private void PrepareLoginPage(ChromeDriver driver)
+        {
+            driver.Url = "https://allocation.miq.govt.nz/portal/login";
+
+            driver.FindElementByCssSelector("#gtm-acceptAllCookieButton").Click();
+            driver.FindElementByCssSelector("#username").SendKeys("wadefleming@yahoo.com");
+            driver.FindElementByCssSelector("#password").SendKeys("Dembava12345");
         }
 
         private bool BookDate(ChromeDriver driver, DateFormatter dateFormatter)
