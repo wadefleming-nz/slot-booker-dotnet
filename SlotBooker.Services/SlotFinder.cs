@@ -15,12 +15,7 @@ namespace SlotBooker.Services
         {
             var dateFormatter = new DateFormatter(date);
 
-            var options = new ChromeOptions();
-
-            // prevent automation detection by recaptcha
-            options.AddArgument("--disable-blink-features=AutomationControlled");
-
-            var driver = new ChromeDriver(options);
+            var driver = CreateUndetectableDriver();
 
             driver.Url = "https://allocation.miq.govt.nz/portal/login";
 
@@ -61,6 +56,16 @@ namespace SlotBooker.Services
             Thread.Sleep(10 * 1000);
 
             driver.Close();
+        }
+
+        private ChromeDriver CreateUndetectableDriver()
+        {
+            var options = new ChromeOptions();
+
+            // prevent automation detection by recaptcha
+            options.AddArgument("--disable-blink-features=AutomationControlled");
+
+            return new ChromeDriver(options);
         }
 
         private bool BookDate(ChromeDriver driver, DateFormatter dateFormatter)
