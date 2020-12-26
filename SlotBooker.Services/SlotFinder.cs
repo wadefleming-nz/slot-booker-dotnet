@@ -22,18 +22,16 @@ namespace SlotBooker.Services
 
             var viewButton = driver.FindElementByCssSelector("[aria-label=\"View Passengers\' details\"]");
             ScrollTo(driver, viewButton);
-            Thread.Sleep(1 * 1000);
+            
             viewButton.Click();
 
             var secureButton = driver.FindElementByCssSelector("[aria-label='Secure your allocation']");
             ScrollTo(driver, secureButton);
-            Thread.Sleep(1 * 1000);
             secureButton.Click();
 
             // select No accessibility needs
             var accessibilityOption = driver.FindElementByCssSelector("[for='form_rooms_0_accessibilityRequirement_1']");
             ScrollTo(driver, accessibilityOption);
-            Thread.Sleep(1 * 1000);
             accessibilityOption.Click();
 
             for (int retry = 0; ; retry++)
@@ -89,7 +87,6 @@ namespace SlotBooker.Services
             var currentMonth = driver.FindElementByClassName("cur-month");
 
             ScrollTo(driver, nextMonthButton);      // must be in view to be clickable  
-            Thread.Sleep(1 * 1000);
 
             while (currentMonth.Text != month)
             {
@@ -127,9 +124,12 @@ namespace SlotBooker.Services
 
         private void ScrollTo(ChromeDriver driver, IWebElement element)
         {
+            const int scrollWait = 1 * 1000;
+
             int elementPosition = element.Location.Y;
             string javascript = $"window.scroll(0, { elementPosition })";
             driver.ExecuteScript(javascript);
+            Thread.Sleep(scrollWait);
         }
     }
 }
