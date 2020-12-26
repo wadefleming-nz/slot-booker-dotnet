@@ -15,26 +15,47 @@ namespace SlotBooker.UI
             monthCalendar.MinDate = DateTime.Today;
 
             // defaults
-            emailAddressTextBox.Text = "wadefleming@yahoo.com";
-            passwordTextBox.Text = "Dembava12345";     
+            //emailAddressTextBox.Text = "wadefleming@yahoo.com";
+            //passwordTextBox.Text = "Dembava12345";     
         }
 
         private void findButton_Click(object sender, EventArgs e)
         {
-            SlotFinder slotFinder = new SlotFinder();
-            var findSlotParams = new FindSlotParams
+            if (this.ValidateChildren())
             {
-                Email = emailAddressTextBox.Text,
-                Password = passwordTextBox.Text,
-                Dates = selectedDatesListBox.Items.Cast<DateTime>().ToList()
-            };
+                SlotFinder slotFinder = new SlotFinder();
+                var findSlotParams = new FindSlotParams
+                {
+                    Email = emailAddressTextBox.Text,
+                    Password = passwordTextBox.Text,
+                    Dates = selectedDatesListBox.Items.Cast<DateTime>().ToList()
+                };
 
-            slotFinder.FindSlot(findSlotParams);
+                slotFinder.FindSlot(findSlotParams);
+            }
         }
 
         private void monthCalendar_DateSelected(object sender, DateRangeEventArgs e)
         {
             selectedDatesListBox.Items.Add(e.Start);
+        }
+
+        private void emailAddressTextBox_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if(string.IsNullOrEmpty(emailAddressTextBox.Text))
+            {
+                e.Cancel = true;
+                errorProvider.SetError(emailAddressTextBox, "Email must be specified");
+            }
+        }
+
+        private void passwordTextBox_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (string.IsNullOrEmpty(passwordTextBox.Text))
+            {
+                e.Cancel = true;
+                errorProvider.SetError(passwordTextBox, "Password must be specified");
+            }
         }
     }
 }

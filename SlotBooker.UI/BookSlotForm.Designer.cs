@@ -29,6 +29,7 @@ namespace SlotBooker.UI
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.findSlotButton = new System.Windows.Forms.Button();
             this.monthCalendar = new System.Windows.Forms.MonthCalendar();
             this.emailAddressTextBox = new System.Windows.Forms.TextBox();
@@ -38,6 +39,8 @@ namespace SlotBooker.UI
             this.selectedDatesListBox = new System.Windows.Forms.ListBox();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
+            this.errorProvider = new System.Windows.Forms.ErrorProvider(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).BeginInit();
             this.SuspendLayout();
             // 
             // findSlotButton
@@ -64,6 +67,7 @@ namespace SlotBooker.UI
             this.emailAddressTextBox.Name = "emailAddressTextBox";
             this.emailAddressTextBox.Size = new System.Drawing.Size(312, 26);
             this.emailAddressTextBox.TabIndex = 2;
+            this.emailAddressTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.emailAddressTextBox_Validating);
             // 
             // passwordTextBox
             // 
@@ -71,6 +75,7 @@ namespace SlotBooker.UI
             this.passwordTextBox.Name = "passwordTextBox";
             this.passwordTextBox.Size = new System.Drawing.Size(312, 26);
             this.passwordTextBox.TabIndex = 3;
+            this.passwordTextBox.Validating += new System.ComponentModel.CancelEventHandler(this.passwordTextBox_Validating);
             // 
             // label1
             // 
@@ -117,6 +122,11 @@ namespace SlotBooker.UI
             this.label4.TabIndex = 8;
             this.label4.Text = "Selected Date(s)";
             // 
+            // errorProvider
+            // 
+            this.errorProvider.BlinkStyle = System.Windows.Forms.ErrorBlinkStyle.NeverBlink;
+            this.errorProvider.ContainerControl = this;
+            // 
             // BookSlotForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
@@ -134,6 +144,7 @@ namespace SlotBooker.UI
             this.Name = "BookSlotForm";
             this.ShowIcon = false;
             this.Text = "Slot Booker";
+            ((System.ComponentModel.ISupportInitialize)(this.errorProvider)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -150,5 +161,6 @@ namespace SlotBooker.UI
         private System.Windows.Forms.ListBox selectedDatesListBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.ErrorProvider errorProvider;
     }
 }
