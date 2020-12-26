@@ -2,6 +2,7 @@
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
+using SlotBooker.Services.Models;
 using SlotBooker.Services.Utils;
 using System;
 using System.Linq;
@@ -16,13 +17,13 @@ namespace SlotBooker.Services
         private const int retryDelay = 2 * 1000;
         private const int waitUntilClosingDelay = 5 * 60 * 1000;
 
-        public void FindSlot(DateTime date)
+        public void FindSlot(FindSlotParams findSlotParams)
         {
-            var dateFormatter = new DateFormatter(date);
+            var dateFormatter = new DateFormatter(findSlotParams.Date);
 
             using (var driver = CreateUndetectableDriver())
             {
-                PrepareLoginPage(driver);
+                PrepareLoginPage(driver, findSlotParams.Email, findSlotParams.Password);
                 WaitForUserToLogin(driver);
                 NavigateToManageFamilyRegistrationPage(driver);
                 NavigateToHoldYourAccommodationPage(driver);
@@ -45,13 +46,13 @@ namespace SlotBooker.Services
             return new ChromeDriver(options);
         }
 
-        private void PrepareLoginPage(ChromeDriver driver)
+        private void PrepareLoginPage(ChromeDriver driver, string email, string password)
         {
             driver.Url = "https://allocation.miq.govt.nz/portal/login";
 
             driver.FindElementByCssSelector("#gtm-acceptAllCookieButton").Click();
-            driver.FindElementByCssSelector("#username").SendKeys("wadefleming@yahoo.com");
-            driver.FindElementByCssSelector("#password").SendKeys("Dembava12345");
+            driver.FindElementByCssSelector("#username").SendKeys(email);
+            driver.FindElementByCssSelector("#password").SendKeys(password);
         }
 
         private void WaitForUserToLogin(ChromeDriver driver)

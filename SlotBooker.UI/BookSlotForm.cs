@@ -1,12 +1,6 @@
 ﻿using SlotBooker.Services;
+using SlotBooker.Services.Models;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace SlotBooker.UI
@@ -19,6 +13,10 @@ namespace SlotBooker.UI
         {
             InitializeComponent();
 
+            // defaults
+            emailAddressTextBox.Text = "wadefleming@yahoo.com";
+            passwordTextBox.Text = "Dembava12345";
+
             // ensure selected date is consistent with displayed date
             var today = DateTime.Today;
             monthCalendar.SetDate(today);
@@ -27,8 +25,15 @@ namespace SlotBooker.UI
 
         private void findSlotButton_Click(object sender, EventArgs e)
         {
-            SlotFinder slotFinder = new SlotFinder();      
-            slotFinder.FindSlot(selectedDate);
+            SlotFinder slotFinder = new SlotFinder();
+            var findSlotParams = new FindSlotParams
+            {
+                Email = emailAddressTextBox.Text,
+                Password = passwordTextBox.Text,
+                Date = selectedDate
+            };
+
+            slotFinder.FindSlot(findSlotParams);
         }
 
         private void monthCalendar_DateSelected(object sender, DateRangeEventArgs e)
