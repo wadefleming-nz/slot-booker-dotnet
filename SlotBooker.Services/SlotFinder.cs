@@ -5,6 +5,7 @@ using SeleniumExtras.WaitHelpers;
 using SlotBooker.Services.Models;
 using SlotBooker.Services.Utils;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 
@@ -20,7 +21,7 @@ namespace SlotBooker.Services
 
         public void FindSlot(FindSlotParams findSlotParams)
         {
-            var dateFormatter = new DateFormatter(findSlotParams.Dates.First());
+            var dateFormatters = findSlotParams.Dates.Select(d => new DateFormatter(d)).ToList();
 
             using (var driver = CreateUndetectableDriver())
             {
@@ -29,7 +30,7 @@ namespace SlotBooker.Services
                 NavigateToManageFamilyRegistrationPage(driver);
                 NavigateToHoldYourAccommodationPage(driver);
                 SelectNoAccessibilityNeeds(driver);
-                RetryUntilSlotBooked(driver, dateFormatter);
+                RetryUntilSlotBooked(driver, dateFormatters);
                 WaitForConfirmation(driver);
                 TakeScreenshotOfConfirmation(driver);
 
@@ -82,16 +83,27 @@ namespace SlotBooker.Services
             driver.ScrollToAndClick(noAccessibilityNeedsOption);
         }
 
-        private bool RetryUntilSlotBooked(ChromeDriver driver, DateFormatter dateFormatter)
+        private bool RetryUntilSlotBooked(ChromeDriver driver, List<DateFormatter> dateFormatters)
         {
             for (int attempt = 0; ; attempt++)
             {
-                if (BookDate(driver, dateFormatter))
+                if (BookAnyDate(driver, dateFormatters))
                     return true;
 
                 Thread.Sleep(retryDelay);            
                 driver.Navigate().Refresh();
             }
+        }
+
+        private bool BookAnyDate(ChromeDriver driver, List<DateFormatter> dateFormatters)
+        {
+            foreach(DateFormatter dateFormatter in dateFormatters)
+            {
+                if (BookDate(driver, dateFormatter))
+                    return true;
+            }
+
+            return false;
         }
 
         private bool BookDate(ChromeDriver driver, DateFormatter dateFormatter)
