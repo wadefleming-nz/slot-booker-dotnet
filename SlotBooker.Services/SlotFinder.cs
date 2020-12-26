@@ -19,9 +19,7 @@ namespace SlotBooker.Services
 
             PrepareLoginPage(driver);
             WaitForUserToLogin(driver);
-
-            var viewButton = driver.FindElementByCssSelector("[aria-label=\"View Passengers\' details\"]");
-            ScrollToAndClick(driver, viewButton);
+            NavigateToManageFamilyRegistrationPage(driver);
 
             var secureButton = driver.FindElementByCssSelector("[aria-label='Secure your allocation']");
             ScrollToAndClick(driver, secureButton);
@@ -69,6 +67,12 @@ namespace SlotBooker.Services
             var selectBookingText = "Select the booking to manage";
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(60));
             wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.XPath($"//*[contains(text(), '{selectBookingText}')]")));
+        }
+
+        private void NavigateToManageFamilyRegistrationPage(ChromeDriver driver)
+        {
+            var viewButton = driver.FindElementByCssSelector("[aria-label=\"View Passengers\' details\"]");
+            ScrollToAndClick(driver, viewButton);
         }
 
         private bool BookDate(ChromeDriver driver, DateFormatter dateFormatter)
