@@ -23,7 +23,7 @@ namespace SlotBooker.UI
             selectedDate = today;       
         }
 
-        private void findSlotButton_Click(object sender, EventArgs e)
+        private void findButton_Click(object sender, EventArgs e)
         {
             SlotFinder slotFinder = new SlotFinder();
             var findSlotParams = new FindSlotParams

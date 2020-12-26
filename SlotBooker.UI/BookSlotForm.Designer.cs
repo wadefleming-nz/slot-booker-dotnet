@@ -35,21 +35,24 @@ namespace SlotBooker.UI
             this.passwordTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
+            this.selectedDatesListBox = new System.Windows.Forms.ListBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // findSlotButton
             // 
-            this.findSlotButton.Location = new System.Drawing.Point(156, 504);
+            this.findSlotButton.Location = new System.Drawing.Point(208, 636);
             this.findSlotButton.Name = "findSlotButton";
-            this.findSlotButton.Size = new System.Drawing.Size(172, 89);
+            this.findSlotButton.Size = new System.Drawing.Size(111, 59);
             this.findSlotButton.TabIndex = 0;
-            this.findSlotButton.Text = "Find Slot";
+            this.findSlotButton.Text = "Find";
             this.findSlotButton.UseVisualStyleBackColor = true;
-            this.findSlotButton.Click += new System.EventHandler(this.findSlotButton_Click);
+            this.findSlotButton.Click += new System.EventHandler(this.findButton_Click);
             // 
             // monthCalendar
             // 
-            this.monthCalendar.Location = new System.Drawing.Point(88, 196);
+            this.monthCalendar.Location = new System.Drawing.Point(173, 144);
             this.monthCalendar.MaxSelectionCount = 1;
             this.monthCalendar.Name = "monthCalendar";
             this.monthCalendar.TabIndex = 1;
@@ -57,16 +60,16 @@ namespace SlotBooker.UI
             // 
             // emailAddressTextBox
             // 
-            this.emailAddressTextBox.Location = new System.Drawing.Point(156, 42);
+            this.emailAddressTextBox.Location = new System.Drawing.Point(173, 42);
             this.emailAddressTextBox.Name = "emailAddressTextBox";
-            this.emailAddressTextBox.Size = new System.Drawing.Size(298, 26);
+            this.emailAddressTextBox.Size = new System.Drawing.Size(312, 26);
             this.emailAddressTextBox.TabIndex = 2;
             // 
             // passwordTextBox
             // 
-            this.passwordTextBox.Location = new System.Drawing.Point(156, 91);
+            this.passwordTextBox.Location = new System.Drawing.Point(173, 91);
             this.passwordTextBox.Name = "passwordTextBox";
-            this.passwordTextBox.Size = new System.Drawing.Size(298, 26);
+            this.passwordTextBox.Size = new System.Drawing.Size(312, 26);
             this.passwordTextBox.TabIndex = 3;
             // 
             // label1
@@ -87,11 +90,41 @@ namespace SlotBooker.UI
             this.label2.TabIndex = 5;
             this.label2.Text = "Password";
             // 
+            // selectedDatesListBox
+            // 
+            this.selectedDatesListBox.FormattingEnabled = true;
+            this.selectedDatesListBox.ItemHeight = 20;
+            this.selectedDatesListBox.Location = new System.Drawing.Point(173, 426);
+            this.selectedDatesListBox.Name = "selectedDatesListBox";
+            this.selectedDatesListBox.Size = new System.Drawing.Size(312, 164);
+            this.selectedDatesListBox.TabIndex = 6;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(27, 144);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(121, 20);
+            this.label3.TabIndex = 7;
+            this.label3.Text = "Choose Date(s)";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(27, 426);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(129, 20);
+            this.label4.TabIndex = 8;
+            this.label4.Text = "Selected Date(s)";
+            // 
             // BookSlotForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(500, 651);
+            this.ClientSize = new System.Drawing.Size(521, 721);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.selectedDatesListBox);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.passwordTextBox);
@@ -113,5 +146,8 @@ namespace SlotBooker.UI
         private System.Windows.Forms.TextBox passwordTextBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ListBox selectedDatesListBox;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
     }
 }
