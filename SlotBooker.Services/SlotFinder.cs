@@ -11,6 +11,8 @@ namespace SlotBooker.Services
 {
     public class SlotFinder
     {
+        private const int retryDelay = 2 * 1000;
+
         public void FindSlot(DateTime date)
         {
             var dateFormatter = new DateFormatter(date);
@@ -21,17 +23,10 @@ namespace SlotBooker.Services
             WaitForUserToLogin(driver);
             NavigateToManageFamilyRegistrationPage(driver);
             NavigateToHoldYourAccommodationPage(driver);
-            SelectNoAccessibilityNeeds(driver);           
+            SelectNoAccessibilityNeeds(driver);
 
-            for (int retry = 0; ; retry++)
-            {
-                if (BookDate(driver, dateFormatter))
-                    break;
-
-                Thread.Sleep(2 * 1000);             // delay between retries
-                driver.Navigate().Refresh();
-            }
-
+            RetryUntilSlotBooked(driver, dateFormatter);
+            
             Thread.Sleep(10 * 1000);
 
             driver.Close();
@@ -80,6 +75,18 @@ namespace SlotBooker.Services
         {
             var noAccessibilityNeedsOption = driver.FindElementByCssSelector("[for='form_rooms_0_accessibilityRequirement_1']");
             ScrollToAndClick(driver, noAccessibilityNeedsOption);
+        }
+
+        private void RetryUntilSlotBooked(ChromeDriver driver, DateFormatter dateFormatter)
+        {
+            for (int attempt = 0; ; attempt++)
+            {
+                if (BookDate(driver, dateFormatter))
+                    return;
+
+                Thread.Sleep(retryDelay);            
+                driver.Navigate().Refresh();
+            }
         }
 
         private bool BookDate(ChromeDriver driver, DateFormatter dateFormatter)
