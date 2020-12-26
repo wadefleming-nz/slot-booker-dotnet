@@ -75,7 +75,7 @@ namespace SlotBooker.UI
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(26, 34);
+            this.label1.Location = new System.Drawing.Point(44, 31);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(111, 20);
             this.label1.TabIndex = 4;
@@ -84,7 +84,7 @@ namespace SlotBooker.UI
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(26, 80);
+            this.label2.Location = new System.Drawing.Point(77, 80);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(78, 20);
             this.label2.TabIndex = 5;
@@ -102,7 +102,7 @@ namespace SlotBooker.UI
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(26, 130);
+            this.label3.Location = new System.Drawing.Point(34, 130);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(121, 20);
             this.label3.TabIndex = 7;
