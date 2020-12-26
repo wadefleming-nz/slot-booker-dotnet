@@ -1,7 +1,7 @@
 ﻿
 namespace SlotBookerApp
 {
-    partial class Form1
+    partial class BookSlotForm
     {
         /// <summary>
         ///  Required designer variable.

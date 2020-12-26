@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace SlotBookerApp
 {
-    public partial class Form1 : Form
+    public partial class BookSlotForm : Form
     {
-        public Form1()
+        public BookSlotForm()
         {
             InitializeComponent();
         }
