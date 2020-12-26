@@ -2,25 +2,19 @@
 using SlotBooker.Services.Models;
 using System;
 using System.Windows.Forms;
+using System.Linq;
 
 namespace SlotBooker.UI
 {
     public partial class BookSlotForm : Form
     {
-        DateTime selectedDate;
-
         public BookSlotForm()
         {
             InitializeComponent();
 
             // defaults
             emailAddressTextBox.Text = "wadefleming@yahoo.com";
-            passwordTextBox.Text = "Dembava12345";
-
-            // ensure selected date is consistent with displayed date
-            var today = DateTime.Today;
-            monthCalendar.SetDate(today);
-            selectedDate = today;       
+            passwordTextBox.Text = "Dembava12345";     
         }
 
         private void findButton_Click(object sender, EventArgs e)
@@ -30,7 +24,7 @@ namespace SlotBooker.UI
             {
                 Email = emailAddressTextBox.Text,
                 Password = passwordTextBox.Text,
-                Date = selectedDate
+                Dates = selectedDatesListBox.Items.Cast<DateTime>().ToList()
             };
 
             slotFinder.FindSlot(findSlotParams);
@@ -38,7 +32,7 @@ namespace SlotBooker.UI
 
         private void monthCalendar_DateSelected(object sender, DateRangeEventArgs e)
         {
-            selectedDate = e.Start;
+            selectedDatesListBox.Items.Add(e.Start);
         }
     }
 }

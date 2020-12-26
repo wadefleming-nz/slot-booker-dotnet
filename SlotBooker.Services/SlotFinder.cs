@@ -20,7 +20,7 @@ namespace SlotBooker.Services
 
         public void FindSlot(FindSlotParams findSlotParams)
         {
-            var dateFormatter = new DateFormatter(findSlotParams.Date);
+            var dateFormatter = new DateFormatter(findSlotParams.Dates.First());
 
             using (var driver = CreateUndetectableDriver())
             {
