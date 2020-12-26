@@ -57,5 +57,14 @@ namespace SlotBooker.UI
                 errorProvider.SetError(passwordTextBox, "Password must be specified");
             }
         }
+
+        private void selectedDatesListBox_Validating(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if(selectedDatesListBox.Items.Count == 0)
+            {
+                e.Cancel = true;
+                errorProvider.SetError(selectedDatesListBox, "Select at least one date");
+            }
+        }
     }
 }

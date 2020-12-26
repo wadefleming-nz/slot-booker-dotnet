@@ -103,6 +103,7 @@ namespace SlotBooker.UI
             this.selectedDatesListBox.Name = "selectedDatesListBox";
             this.selectedDatesListBox.Size = new System.Drawing.Size(312, 164);
             this.selectedDatesListBox.TabIndex = 6;
+            this.selectedDatesListBox.Validating += new System.ComponentModel.CancelEventHandler(this.selectedDatesListBox_Validating);
             // 
             // label3
             // 
