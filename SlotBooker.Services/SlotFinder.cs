@@ -11,6 +11,8 @@ namespace SlotBooker.Services
 {
     public class SlotFinder
     {
+        private const int waitForUserToLoginDelay = 60 * 1000;
+        private const int waitForBookingConfirmationDelay = 3 * 60 * 1000;
         private const int retryDelay = 2 * 1000;
         private const int waitUntilClosingDelay = 5 * 60 * 1000;
 
@@ -56,7 +58,7 @@ namespace SlotBooker.Services
         {
             // wait for manual solve of recaptcha and login
             var selectBookingText = "Select the booking to manage";
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(60));
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromMilliseconds(waitForUserToLoginDelay));
             wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.XPath($"//*[contains(text(), '{selectBookingText}')]")));
         }
 
@@ -129,7 +131,7 @@ namespace SlotBooker.Services
         private void WaitForConfirmation(ChromeDriver driver)
         {
             var successText = "Managed isolation allocation is held pending flight confirmation";
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(180));
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(waitForBookingConfirmationDelay));
             wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.XPath($"//*[contains(text(), '{successText}')]")));
         }
 
