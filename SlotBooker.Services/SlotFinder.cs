@@ -17,20 +17,20 @@ namespace SlotBooker.Services
         public void FindSlot(DateTime date)
         {
             var dateFormatter = new DateFormatter(date);
-            var driver = CreateUndetectableDriver();
 
-            PrepareLoginPage(driver);
-            WaitForUserToLogin(driver);
-            NavigateToManageFamilyRegistrationPage(driver);
-            NavigateToHoldYourAccommodationPage(driver);
-            SelectNoAccessibilityNeeds(driver);
-            RetryUntilSlotBooked(driver, dateFormatter);
-            WaitForConfirmation(driver);
-            TakeScreenshotOfConfirmation(driver);
+            using (var driver = CreateUndetectableDriver())
+            {
+                PrepareLoginPage(driver);
+                WaitForUserToLogin(driver);
+                NavigateToManageFamilyRegistrationPage(driver);
+                NavigateToHoldYourAccommodationPage(driver);
+                SelectNoAccessibilityNeeds(driver);
+                RetryUntilSlotBooked(driver, dateFormatter);
+                WaitForConfirmation(driver);
+                TakeScreenshotOfConfirmation(driver);
 
-            Thread.Sleep(waitUntilClosingDelay);
-
-            driver.Close();
+                Thread.Sleep(waitUntilClosingDelay);
+            }
         }
 
         private ChromeDriver CreateUndetectableDriver()
