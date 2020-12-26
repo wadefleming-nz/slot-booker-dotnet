@@ -15,6 +15,7 @@ namespace SlotBooker.Services
         private const int waitForUserToLoginDelay = 60 * 1000;
         private const int waitForBookingConfirmationDelay = 3 * 60 * 1000;
         private const int retryDelay = 2 * 1000;
+        private const int waitForConfirmationAutoScrollDelay = 1 * 1000;
         private const int waitUntilClosingDelay = 5 * 60 * 1000;
 
         public void FindSlot(FindSlotParams findSlotParams)
@@ -138,7 +139,7 @@ namespace SlotBooker.Services
 
         private void TakeScreenshotOfConfirmation(ChromeDriver driver)
         {
-            Thread.Sleep(1 * 1000);     //wait for in built auto scroll to relevant section
+            Thread.Sleep(waitForConfirmationAutoScrollDelay);   
 
             var screenshot = driver.GetScreenshot();
             screenshot.SaveAsFile(@"C:\temp\miq\miq-booked.png", ScreenshotImageFormat.Png);
