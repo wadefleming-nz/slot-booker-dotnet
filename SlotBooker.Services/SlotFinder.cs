@@ -20,10 +20,8 @@ namespace SlotBooker.Services
             PrepareLoginPage(driver);
             WaitForUserToLogin(driver);
             NavigateToManageFamilyRegistrationPage(driver);
-
-            var secureButton = driver.FindElementByCssSelector("[aria-label='Secure your allocation']");
-            ScrollToAndClick(driver, secureButton);
-
+            NavigateToHoldYourAccommodationPage(driver);
+           
             // select No accessibility needs
             var accessibilityOption = driver.FindElementByCssSelector("[for='form_rooms_0_accessibilityRequirement_1']");
             ScrollToAndClick(driver, accessibilityOption);
@@ -73,6 +71,12 @@ namespace SlotBooker.Services
         {
             var viewButton = driver.FindElementByCssSelector("[aria-label=\"View Passengers\' details\"]");
             ScrollToAndClick(driver, viewButton);
+        }
+
+        private void NavigateToHoldYourAccommodationPage(ChromeDriver driver)
+        {
+            var secureButton = driver.FindElementByCssSelector("[aria-label='Secure your allocation']");
+            ScrollToAndClick(driver, secureButton);
         }
 
         private bool BookDate(ChromeDriver driver, DateFormatter dateFormatter)
