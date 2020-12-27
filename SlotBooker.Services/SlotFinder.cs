@@ -53,9 +53,9 @@ namespace SlotBooker.Services
         {
             driver.Url = "https://allocation.miq.govt.nz/portal/login";
 
-            driver.FindElementById("gtm-acceptAllCookieButton").Click();
-            driver.FindElementById("username").SendKeys(email);
-            driver.FindElementById("password").SendKeys(password);
+            driver.WaitFor(By.Id("gtm-acceptAllCookieButton")).Click();
+            driver.WaitFor(By.Id("username")).SendKeys(email);
+            driver.WaitFor(By.Id("password")).SendKeys(password);
         }
 
         private void WaitForUserToLogin(ChromeDriver driver)
@@ -68,19 +68,19 @@ namespace SlotBooker.Services
 
         private void NavigateToManageFamilyRegistrationPage(ChromeDriver driver)
         {
-            var viewButton = driver.FindElementByCssSelector("[aria-label=\"View Passengers\' details\"]");
+            var viewButton = driver.WaitFor(By.CssSelector("[aria-label=\"View Passengers\' details\"]"));
             driver.ScrollToAndClick(viewButton);
         }
 
         private void NavigateToHoldYourAccommodationPage(ChromeDriver driver)
         {
-            var secureButton = driver.FindElementByCssSelector("[aria-label='Secure your allocation']");
+            var secureButton = driver.WaitFor(By.CssSelector("[aria-label='Secure your allocation']"));
             driver.ScrollToAndClick(secureButton);
         }
 
         private void SelectNoAccessibilityNeeds(ChromeDriver driver)
         {
-            var noAccessibilityNeedsOption = driver.FindElementByCssSelector("[for='form_rooms_0_accessibilityRequirement_1']");
+            var noAccessibilityNeedsOption = driver.WaitFor(By.CssSelector("[for='form_rooms_0_accessibilityRequirement_1']"));
             driver.ScrollToAndClick(noAccessibilityNeedsOption);
         }
 
@@ -138,7 +138,7 @@ namespace SlotBooker.Services
             if (dayElement != null)
             {
                 dayElement.Click();
-                driver.FindElementById("form_next").Click();
+                driver.WaitFor(By.Id("form_next")).Click();
 
                 return true;
             }
