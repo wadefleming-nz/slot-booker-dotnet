@@ -28,7 +28,6 @@ namespace SlotBooker.Services
                 WaitForUserToLogin(driver);
                 NavigateToManageFamilyRegistrationPage(driver);
                 NavigateToHoldYourAccommodationPage(driver);
-                SelectNoAccessibilityNeeds(driver);
                 var dateBooked = RetryUntilSlotBooked(driver, dateFormatters);
                 WaitForConfirmation(driver);
 
@@ -76,16 +75,11 @@ namespace SlotBooker.Services
             driver.ScrollToAndClick(secureButton);
         }
 
-        private void SelectNoAccessibilityNeeds(ChromeDriver driver)
-        {
-            var noAccessibilityNeedsOption = driver.WaitFor(By.CssSelector("[for='form_rooms_0_accessibilityRequirement_1']"));
-            driver.ScrollToAndClick(noAccessibilityNeedsOption);
-        }
-
         private DateTime RetryUntilSlotBooked(ChromeDriver driver, List<DateFormatter> dateFormatters)
         {
             for (int attempt = 0; ; attempt++)
             {
+                SelectNoAccessibilityNeeds(driver);
                 var result = BookAnyDate(driver, dateFormatters);
                 if (result.Succeeded)
                 {
@@ -95,6 +89,12 @@ namespace SlotBooker.Services
                 Thread.Sleep(retryDelay);            
                 driver.Navigate().Refresh();
             }
+        }
+
+        private void SelectNoAccessibilityNeeds(ChromeDriver driver)
+        {
+            var noAccessibilityNeedsOption = driver.WaitFor(By.CssSelector("[for='form_rooms_0_accessibilityRequirement_1']"));
+            driver.ScrollToAndClick(noAccessibilityNeedsOption);
         }
 
         private (bool Succeeded, DateTime? DateBooked) BookAnyDate(ChromeDriver driver, List<DateFormatter> dateFormatters)
