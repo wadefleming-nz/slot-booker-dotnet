@@ -118,15 +118,8 @@ namespace SlotBooker.Services
 
         private void NavigateToMonth(ChromeDriver driver, string month)
         {
-            const string nextMonthButtonClass = "flatpickr-next-month";
-            const string currMonthTextClass = "cur-month";
-
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromMilliseconds(elementWaitTimeout));
-            wait.Until(ExpectedConditions.ElementToBeClickable(By.ClassName(nextMonthButtonClass)));
-            wait.Until(ExpectedConditions.ElementIsVisible(By.ClassName(currMonthTextClass)));
-
-            var nextMonthButton = driver.FindElementByClassName(nextMonthButtonClass);
-            var currentMonth = driver.FindElementByClassName(currMonthTextClass);
+            var nextMonthButton = driver.WaitFor(By.ClassName("flatpickr-next-month"));
+            var currentMonth = driver.WaitFor(By.ClassName("cur-month"));
 
             driver.ScrollTo(nextMonthButton);      // must be in view to be clickable  
 

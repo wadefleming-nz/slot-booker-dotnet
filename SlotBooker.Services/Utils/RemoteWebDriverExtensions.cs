@@ -1,5 +1,8 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Remote;
+using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
+using System;
 using System.Threading;
 
 namespace SlotBooker.Services.Utils
@@ -20,6 +23,13 @@ namespace SlotBooker.Services.Utils
         {
             ScrollTo(driver, element);
             element.Click();
+        }
+
+        public static IWebElement WaitFor(this RemoteWebDriver driver, By locator)
+        {
+            TimeSpan defaultTimeout = TimeSpan.FromSeconds(10);
+            WebDriverWait wait = new WebDriverWait(driver, defaultTimeout);
+            return wait.Until(ExpectedConditions.ElementIsVisible(locator));
         }
     }
 }
