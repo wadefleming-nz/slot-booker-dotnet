@@ -13,6 +13,8 @@ namespace SlotBooker.Services
 {
     public class SlotFinder
     {
+        private const int elementWaitTimeout = 10 * 1000;
+
         private const int waitForUserToLoginDelay = 60 * 1000;
         private const int waitForBookingConfirmationDelay = 3 * 60 * 1000;
         private const int retryDelay = 2 * 1000;
@@ -116,8 +118,15 @@ namespace SlotBooker.Services
 
         private void NavigateToMonth(ChromeDriver driver, string month)
         {
-            var nextMonthButton = driver.FindElementByClassName("flatpickr-next-month");
-            var currentMonth = driver.FindElementByClassName("cur-month");
+            const string nextMonthButtonClass = "flatpickr-next-month";
+            const string currMonthTextClass = "cur-month";
+
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromMilliseconds(elementWaitTimeout));
+            wait.Until(ExpectedConditions.ElementToBeClickable(By.ClassName(nextMonthButtonClass)));
+            wait.Until(ExpectedConditions.ElementIsVisible(By.ClassName(currMonthTextClass)));
+
+            var nextMonthButton = driver.FindElementByClassName(nextMonthButtonClass);
+            var currentMonth = driver.FindElementByClassName(currMonthTextClass);
 
             driver.ScrollTo(nextMonthButton);      // must be in view to be clickable  
 
@@ -147,7 +156,7 @@ namespace SlotBooker.Services
         private void WaitForConfirmation(ChromeDriver driver)
         {
             var successText = "Managed isolation allocation is held pending flight confirmation";
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(waitForBookingConfirmationDelay));
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromMilliseconds(waitForBookingConfirmationDelay));
             wait.Until(ExpectedConditions.VisibilityOfAllElementsLocatedBy(By.XPath($"//*[contains(text(), '{successText}')]")));
         }
     }
