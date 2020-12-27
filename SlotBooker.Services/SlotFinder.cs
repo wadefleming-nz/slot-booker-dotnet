@@ -13,10 +13,8 @@ namespace SlotBooker.Services
 {
     public class SlotFinder
     {
-        private const int elementWaitTimeout = 10 * 1000;
-
         private const int waitForUserToLoginDelay = 60 * 1000;
-        private const int waitForBookingConfirmationDelay = 3 * 60 * 1000;
+        private const int waitForBookingConfirmationDelay = 10 * 60 * 1000;
         private const int retryDelay = 2 * 1000;
         private const int waitUntilClosingDelay = 2 * 60 * 1000;
 
