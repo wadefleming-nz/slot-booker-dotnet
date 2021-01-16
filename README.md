@@ -10,7 +10,7 @@ Slots in this 2 month period are sometimes available due to cancellations but ar
 
 The general approach to secure these slots is to log in and manually refresh the availability calendar page at intervals as low as possible (typically 5 seconds) over an extended amount of time (typically several days).
 
-When a slot is available it must be taken very qickly given other competition.
+When a slot is available it must be taken very quickly given other competition.
 
 This app/bot automates the entire process (aside from solving the initial reCAPTCHA one time only).
 
