@@ -1,7 +1,7 @@
 # Slot Booker
 Automated bot to secure Managed Isolation slots with ease
 
-# Background
+## Background
 New Zealand has implemented a strict Managed Isolation process to address COVID transmission, whereby incoming passengers must stay in government managed hotels for a 14 day period.
 
 These slots must be secured before booking of flights. They are released 3 months in advance, and are generally booked out for the next 2 months. 
@@ -14,7 +14,7 @@ When a slot is available it must be taken very qickly given other competition.
 
 This app/bot automates the entire process (aside from solving the initial reCAPTCHA one time only).
 
-# Usage
+## Usage
 
 1. User starts App
 2. User enters email and password for MIQ website
@@ -28,7 +28,7 @@ This app/bot automates the entire process (aside from solving the initial reCAPT
 10. If desired day is available, it is booked
 11. Browser closes and App reports success
 
-# Technologies
+## Technologies
 - C# .NET
 - Winforms
 - Selenium WebDriver
